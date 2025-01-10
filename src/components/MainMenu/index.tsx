@@ -10,7 +10,6 @@ const MainMenu = () => {
     const { filterMenu } = useMenu();
 
     const handleSearch = (searchTerm: string) => {
-        console.log("searchTerm: ", searchTerm);
         filterMenu(searchTerm);
         setSearchValue(searchTerm);
     };

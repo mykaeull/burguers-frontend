@@ -36,27 +36,3 @@
         transform: rotate(360deg);
     }
 }
-
-.custom-scrollbar::-webkit-scrollbar {
-    width: 4px; /* Largura da barra de rolagem */
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Cor do track (fundo da barra) */
-    border-radius: 24px; /* Bordas arredondadas */
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #b0b2be; /* Cor do thumb (indicador da barra) */
-    border-radius: 24px; /* Bordas arredondadas */
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #8c8d99; /* Cor ao passar o mouse */
-}
-
-/* Para navegadores que não suportam webkit-scrollbar (fallback opcional) */
-.custom-scrollbar {
-    scrollbar-width: thin; /* Largura fina no Firefox */
-    scrollbar-color: #b0b2be #f1f1f1; /* Thumb e track no Firefox */
-}

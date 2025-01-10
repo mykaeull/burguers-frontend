@@ -1,9 +1,10 @@
 import React from "react";
 import { useMenu } from "../../contexts/MenuContext";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const Cart = () => {
-    const { cart, addToCart } = useMenu();
+    const { cart, addToCart, clearCart } = useMenu();
 
     const calculateTotal = () =>
         cart.reduce((total, item) => {
@@ -14,6 +15,11 @@ const Cart = () => {
 
             return total + defaultPrice * item.quantity;
         }, 0);
+
+    const handleFinishOrder = () => {
+        toast.success("Pedido realizado!");
+        clearCart();
+    };
 
     return (
         <div className="bg-white shadow-custom rounded-md">
@@ -104,8 +110,11 @@ const Cart = () => {
                             </div>
                         </div>
 
-                        <button className="w-full mt-8 bg-brown-700 text-white py-2 rounded-3xl font-bold hover:bg-[#8d4d37] transition duration-200">
-                            Finalizar compra
+                        <button
+                            onClick={handleFinishOrder}
+                            className="w-full mt-8 bg-brown-700 text-white py-2 rounded-3xl font-bold hover:bg-[#8d4d37] transition duration-200"
+                        >
+                            Finalizar pedido
                         </button>
                     </>
                 )}

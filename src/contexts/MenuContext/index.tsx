@@ -9,6 +9,7 @@ interface MenuContextData {
     cart: MenuSectionItem[];
     addToCart: (item: MenuSectionItem, quantity: number) => void;
     filterMenu: (searchTerm: string) => void;
+    clearCart: () => void;
 }
 
 const MenuContext = createContext<MenuContextData | undefined>(undefined);
@@ -100,6 +101,10 @@ export const MenuProvider = ({ children }: any) => {
         });
     };
 
+    const clearCart = () => {
+        setCart([]); // Limpa o estado do carrinho
+    };
+
     const filterMenu = (searchTerm: string) => {
         if (!originalMenu) return;
 
@@ -125,7 +130,15 @@ export const MenuProvider = ({ children }: any) => {
 
     return (
         <MenuContext.Provider
-            value={{ menu, loading, error, cart, addToCart, filterMenu }}
+            value={{
+                menu,
+                loading,
+                error,
+                cart,
+                addToCart,
+                filterMenu,
+                clearCart,
+            }}
         >
             {children}
         </MenuContext.Provider>

@@ -4,6 +4,7 @@ import AppRoutes from "./routes";
 import { MenuProvider } from "./contexts/MenuContext";
 import Header from "./components/Header";
 import { BrowserRouter as Router } from "react-router-dom";
+import Toaster from "./components/Toaster";
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                 <div>
                     <Header />
                     <AppRoutes />
+                    <Toaster />
                 </div>
             </Router>
         </MenuProvider>

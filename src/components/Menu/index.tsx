@@ -79,6 +79,8 @@ const Menu = ({ search }: MenuProps) => {
         return <p>Erro ao carregar o menu: {error}</p>;
     }
 
+    const hasItems = menu?.sections.some((section) => section.items.length > 0);
+
     return (
         <div>
             <Categories
@@ -86,79 +88,94 @@ const Menu = ({ search }: MenuProps) => {
                 setExpandedCategories={setExpandedCategories}
             />
 
-            {menu?.sections.map((section) => (
-                <div key={section.id} className="mb-6" id={String(section.id)}>
+            {!hasItems ? (
+                <p className="text-center mt-8 text-lg text-gray-600">
+                    Item não encontrado
+                </p>
+            ) : (
+                menu?.sections.map((section) => (
                     <div
-                        className="flex justify-between items-center cursor-pointer"
-                        onClick={() => toggleCategory(section.name)}
+                        key={section.id}
+                        className="mb-6"
+                        id={String(section.id)}
                     >
-                        <h1 className="text-xl font-bold text-blackMenu">
-                            {section.name}
-                        </h1>
-                        {expandedCategories.includes(section.name) ? (
-                            <FiChevronUp size={24} color="#4F372F" />
-                        ) : (
-                            <FiChevronDown size={24} color="#4F372F" />
+                        <div
+                            className="flex justify-between items-center cursor-pointer"
+                            onClick={() => toggleCategory(section.name)}
+                        >
+                            <h1 className="text-xl font-bold text-blackMenu">
+                                {section.name}
+                            </h1>
+                            {expandedCategories.includes(section.name) ? (
+                                <FiChevronUp size={24} color="#4F372F" />
+                            ) : (
+                                <FiChevronDown size={24} color="#4F372F" />
+                            )}
+                        </div>
+
+                        {expandedCategories.includes(section.name) && (
+                            <div className="mt-4">
+                                {section.items.map((item) => {
+                                    const defaultPrice =
+                                        item.price === 0 &&
+                                        item.modifiers?.length
+                                            ? item.modifiers[0].items[0]
+                                                  ?.price || 0
+                                            : item.price;
+
+                                    return (
+                                        <div
+                                            key={item.id}
+                                            className="flex justify-between items-center mb-4 cursor-pointer"
+                                            onClick={() =>
+                                                handleOpenModal(item)
+                                            }
+                                        >
+                                            <div className="w-[80%]">
+                                                <div className="flex items-center gap-2">
+                                                    {cart.find(
+                                                        (e) =>
+                                                            e.name === item.name
+                                                    )?.quantity && (
+                                                        <div className="rounded-md text-white text-sm bg-brown-700 w-5 h-5 text-center">
+                                                            {
+                                                                cart.find(
+                                                                    (e) =>
+                                                                        e.name ===
+                                                                        item.name
+                                                                )?.quantity
+                                                            }
+                                                        </div>
+                                                    )}
+
+                                                    <h3 className="font-bold text-blackMenu">
+                                                        {item.name}
+                                                    </h3>
+                                                </div>
+                                                <p className="text-sm text-gray-500">
+                                                    {item.description}
+                                                </p>
+                                                <p className="text-sm font-bold">
+                                                    {`R$ ${defaultPrice.toFixed(
+                                                        2
+                                                    )}`}
+                                                </p>
+                                            </div>
+                                            {item.image && (
+                                                <img
+                                                    src={item.image}
+                                                    alt={item.name}
+                                                    className="w-20 h-20 object-cover rounded-md"
+                                                />
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         )}
                     </div>
-
-                    {expandedCategories.includes(section.name) && (
-                        <div className="mt-4">
-                            {section.items.map((item) => {
-                                const defaultPrice =
-                                    item.price === 0 && item.modifiers?.length
-                                        ? item.modifiers[0].items[0]?.price || 0
-                                        : item.price;
-
-                                return (
-                                    <div
-                                        key={item.id}
-                                        className="flex justify-between items-center mb-4 cursor-pointer"
-                                        onClick={() => handleOpenModal(item)}
-                                    >
-                                        <div className="w-[80%]">
-                                            <div className="flex items-center gap-2">
-                                                {cart.find(
-                                                    (e) => e.name === item.name
-                                                )?.quantity && (
-                                                    <div className="rounded-md text-white text-sm bg-brown-700 w-5 h-5 text-center">
-                                                        {
-                                                            cart.find(
-                                                                (e) =>
-                                                                    e.name ===
-                                                                    item.name
-                                                            )?.quantity
-                                                        }
-                                                    </div>
-                                                )}
-
-                                                <h3 className="font-bold text-blackMenu">
-                                                    {item.name}
-                                                </h3>
-                                            </div>
-                                            <p className="text-sm text-gray-500">
-                                                {item.description}
-                                            </p>
-                                            <p className="text-sm font-bold">
-                                                {`R$ ${defaultPrice.toFixed(
-                                                    2
-                                                )}`}
-                                            </p>
-                                        </div>
-                                        {item.image && (
-                                            <img
-                                                src={item.image}
-                                                alt={item.name}
-                                                className="w-20 h-20 object-cover rounded-md"
-                                            />
-                                        )}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    )}
-                </div>
-            ))}
+                ))
+            )}
 
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 {selectedItem && (
