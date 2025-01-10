@@ -1,0 +1,15 @@
+{
+    "menu": "Menu",
+    "login": "Entrar",
+    "contact": "Contato",
+    "search_placeholder": "Buscar itens no menu",
+    "not_found": "404 - Página Não Encontrada",
+    "cart_empty": "Seu carrinho está vazio",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "checkout": "Finalizar pedido",
+    "add_to_cart": "Adicionar ao Carrinho",
+    "cart": "Carrinho",
+    "finish_order": "Finalizar pedido",
+    "open_cart": "Abrir carrinho"
+}

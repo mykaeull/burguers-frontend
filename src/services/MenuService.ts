@@ -13,13 +13,13 @@ export async function getMenu() {
         sections: data.sections.map((section: any) => ({
             id: section.id,
             name: section.name,
-            image: section.images?.[0]?.image || null, // Usa a primeira imagem da seção, se disponível
+            image: section.images?.[0]?.image || null,
             items: section.items.map((item: any) => ({
                 id: item.id,
                 name: item.name,
                 description: item.description || null,
                 price: item.price,
-                image: item.images?.[0]?.image || null, // Usa a primeira imagem do item, se disponível
+                image: item.images?.[0]?.image || null,
                 available: item.available,
                 modifiers:
                     item.modifiers?.map((modifier: any) => ({
@@ -34,7 +34,7 @@ export async function getMenu() {
                             maxChoices: modifierItem.maxChoices || 1,
                             available: modifierItem.available,
                         })),
-                    })) || null, // Apenas inclui modificadores se existirem
+                    })) || null,
             })),
         })),
     };

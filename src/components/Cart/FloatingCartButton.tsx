@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useMenu } from "../../contexts/MenuContext";
 import Modal from "../Modal";
 import Cart from ".";
+import { useTranslation } from "react-i18next";
 
 const FloatingCartButton = () => {
     const { cart } = useMenu();
+    const { t } = useTranslation();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => setIsModalOpen(true);
@@ -14,7 +16,6 @@ const FloatingCartButton = () => {
 
     return (
         <>
-            {/* Botão flutuante */}
             <button
                 onClick={openModal}
                 disabled={isCartEmpty}
@@ -24,10 +25,9 @@ const FloatingCartButton = () => {
                         : "bg-brown-700 hover:bg-[#8d4d37] transition duration-200"
                 }`}
             >
-                Abrir carrinho
+                {t("open_cart")}
             </button>
 
-            {/* Modal contendo o Cart */}
             <Modal isOpen={isModalOpen} onClose={closeModal}>
                 <Cart />
             </Modal>

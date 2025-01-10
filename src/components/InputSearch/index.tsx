@@ -16,7 +16,6 @@ const InputSearch = ({
         const newValue = event.target.value;
         setValue(newValue);
 
-        // Chama a função onSearch a cada alteração
         if (onSearch) {
             onSearch(newValue);
         }
@@ -24,9 +23,7 @@ const InputSearch = ({
 
     return (
         <div className="flex items-center bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 shadow-sm w-full">
-            {/* Icone de busca */}
             <FiSearch className="text-gray-400 mr-3" size={20} />
-            {/* Input de texto */}
             <input
                 type="text"
                 placeholder={placeholder}

@@ -2,8 +2,8 @@ import React from "react";
 import { useMenu } from "../../contexts/MenuContext";
 
 interface CategoriesProps {
-    expandedCategories: any[]; // Agora recebe o array de categorias expandidas
-    setExpandedCategories: (categories: string[]) => void; // Recebe a função para atualizar o estado
+    expandedCategories: any[];
+    setExpandedCategories: (categories: string[]) => void;
 }
 
 const Categories = ({
@@ -35,7 +35,7 @@ const Categories = ({
                     className="flex flex-col items-center cursor-pointer"
                     onClick={() =>
                         toggleCategory(section.name, String(section.id))
-                    } // Usa a função de toggle corretamente
+                    }
                 >
                     <div
                         className={`w-[4.5rem] sm:w-[5.5rem] h-[4.5rem] sm:h-[5.5rem] rounded-full ${

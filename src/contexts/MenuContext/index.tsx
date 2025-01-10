@@ -3,9 +3,9 @@ import { getMenu } from "../../services/MenuService";
 import { Menu, MenuSectionItem } from "../../types/MenuTypes";
 
 interface MenuContextData {
-    menu: Menu | null; // Dados do menu
-    loading: boolean; // Indicador de carregamento
-    error: string | null; // Erro em caso de falha na requisição
+    menu: Menu | null;
+    loading: boolean;
+    error: string | null;
     cart: MenuSectionItem[];
     addToCart: (item: MenuSectionItem, quantity: number) => void;
     filterMenu: (searchTerm: string) => void;
@@ -20,12 +20,11 @@ export const MenuProvider = ({ children }: any) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    // Inicialize o cart a partir do localStorage
     const [cart, setCart] = useState<MenuSectionItem[]>(() => {
         const storedCart = localStorage.getItem("cart");
         if (storedCart) {
             try {
-                return JSON.parse(storedCart); // Alimenta o estado cart com o localStorage
+                return JSON.parse(storedCart);
             } catch {
                 console.error("Erro ao parsear o carrinho do localStorage");
                 return [];
@@ -34,12 +33,11 @@ export const MenuProvider = ({ children }: any) => {
         return [];
     });
 
-    // Atualiza o localStorage sempre que o cart for alterado
     useEffect(() => {
         if (cart.length > 0) {
             localStorage.setItem("cart", JSON.stringify(cart));
         } else {
-            localStorage.removeItem("cart"); // Remove se o carrinho estiver vazio
+            localStorage.removeItem("cart");
         }
     }, [cart]);
 
@@ -74,7 +72,7 @@ export const MenuProvider = ({ children }: any) => {
                         const updatedQuantity = cartItem.quantity + quantity;
 
                         if (updatedQuantity <= 0) {
-                            return undefined; // Remove itens com quantidade zero ou menor
+                            return undefined;
                         }
 
                         return {
@@ -85,24 +83,22 @@ export const MenuProvider = ({ children }: any) => {
                     return cartItem;
                 });
 
-                // Filtra itens removidos
                 return updatedCart.filter(
                     (cartItem): cartItem is MenuSectionItem =>
                         cartItem !== undefined
                 );
             }
 
-            // Adiciona um novo item se não existir no carrinho
             if (quantity > 0) {
                 return [...prevCart, { ...item, quantity }];
             }
 
-            return prevCart; // Caso nenhuma mudança seja necessária
+            return prevCart;
         });
     };
 
     const clearCart = () => {
-        setCart([]); // Limpa o estado do carrinho
+        setCart([]);
     };
 
     const filterMenu = (searchTerm: string) => {
@@ -145,7 +141,6 @@ export const MenuProvider = ({ children }: any) => {
     );
 };
 
-// Hook personalizado para usar o contexto do menu
 export const useMenu = (): MenuContextData => {
     const context = useContext(MenuContext);
     if (!context) {

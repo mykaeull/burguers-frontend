@@ -12,7 +12,6 @@ const Navbar = () => {
 
     return (
         <nav className="bg-brown-700 text-white relative">
-            {/* Desktop Navbar */}
             <div className="hidden md:flex justify-center items-center px-8 py-4">
                 <ul className="flex space-x-8">
                     <li className="w-32 relative group text-lg">

@@ -1,0 +1,15 @@
+{
+    "menu": "Menu",
+    "login": "Login",
+    "contact": "Contact",
+    "search_placeholder": "Search menu items",
+    "not_found": "404 - Page Not Found",
+    "cart_empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "checkout": "Checkout",
+    "add_to_cart": "Add to Cart",
+    "cart": "Cart",
+    "finish_order": "Finish order",
+    "open_cart": "Open cart"
+}

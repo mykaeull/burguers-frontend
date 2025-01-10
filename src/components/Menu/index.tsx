@@ -13,11 +13,11 @@ const Menu = ({ search }: MenuProps) => {
     const { menu, loading, error, addToCart, cart } = useMenu();
 
     const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
-    const [selectedItem, setSelectedItem] = useState<any>(null); // Item selecionado para o modal
+    const [selectedItem, setSelectedItem] = useState<any>(null);
     const [selectedModifierPrice, setSelectedModifierPrice] =
-        useState<number>(0); // Preço do modificador selecionado
-    const [quantity, setQuantity] = useState(1); // Quantidade do item no modal
-    const [isModalOpen, setIsModalOpen] = useState(false); // Controle do modal
+        useState<number>(0);
+    const [quantity, setQuantity] = useState(1);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         if (search && menu) {
@@ -40,9 +40,8 @@ const Menu = ({ search }: MenuProps) => {
 
     const handleOpenModal = (item: any) => {
         setSelectedItem(item);
-        setQuantity(1); // Reseta a quantidade para 1 ao abrir o modal
+        setQuantity(1);
 
-        // Define o preço do modificador padrão, se aplicável
         if (item.modifiers?.length) {
             setSelectedModifierPrice(item.modifiers[0].items[0]?.price || 0);
         } else {
@@ -55,18 +54,17 @@ const Menu = ({ search }: MenuProps) => {
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setSelectedItem(null);
-        setSelectedModifierPrice(0); // Reseta o modificador ao fechar
+        setSelectedModifierPrice(0);
     };
 
     const handleAddToCart = () => {
         if (selectedItem) {
-            // Cria o item com o preço do modificador, se aplicável
             const itemToAdd = {
                 ...selectedItem,
                 price: selectedModifierPrice || selectedItem.price,
             };
 
-            addToCart(itemToAdd, quantity); // Adiciona ao carrinho
+            addToCart(itemToAdd, quantity);
         }
         handleCloseModal();
     };
@@ -196,7 +194,6 @@ const Menu = ({ search }: MenuProps) => {
                                 {selectedItem.description}
                             </p>
 
-                            {/* Exibição de modifiers */}
                             {selectedItem.modifiers?.length && (
                                 <div className="mt-4">
                                     <h3 className="text-lg font-bold">
@@ -244,7 +241,6 @@ const Menu = ({ search }: MenuProps) => {
                                 </div>
                             )}
 
-                            {/* Controles de quantidade */}
                             <div className="flex items-center justify-center gap-8 mt-4">
                                 <button
                                     className={`text-white ${
@@ -274,7 +270,6 @@ const Menu = ({ search }: MenuProps) => {
                                 </button>
                             </div>
 
-                            {/* Botão de adicionar ao carrinho */}
                             <button
                                 className="w-full mt-4 bg-brown-700 text-white py-2 rounded-3xl font-bold hover:bg-[#8d4d37] transition duration-200"
                                 onClick={handleAddToCart}

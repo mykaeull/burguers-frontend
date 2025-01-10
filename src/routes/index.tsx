@@ -13,16 +13,12 @@ const NotFound = () => (
 const AppRoutes = () => {
     return (
         <Routes>
-            {/* Rota Home */}
             <Route path="/" element={<Home />} />
 
-            {/* Rota Login */}
             <Route path="/login" element={<Login />} />
 
-            {/* Rota Contact */}
             <Route path="/contact" element={<Contact />} />
 
-            {/* Redireciona para 404 se a rota não for encontrada */}
             <Route path="*" element={<NotFound />} />
         </Routes>
     );
