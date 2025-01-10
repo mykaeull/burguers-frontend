@@ -1,20 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import Menu from "../Menu";
 import Cart from "../Cart";
+import InputSearch from "../InputSearch";
+import { useMenu } from "../../contexts/MenuContext";
 
 const MainMenu = () => {
-    return (
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-8 bg-[#F8F9FA] p-8">
-            {/* Menu */}
-            <section className="bg-white shadow-custom p-4 overflow-auto h-fit lg:sticky">
-                <Menu />
-            </section>
+    const [searchValue, setSearchValue] = useState<string>("");
 
-            {/* Carrinho */}
-            <aside className="h-fit lg:sticky hidden md:block">
-                <Cart />
-            </aside>
-        </div>
+    const { filterMenu } = useMenu();
+
+    const handleSearch = (searchTerm: string) => {
+        console.log("searchTerm: ", searchTerm);
+        filterMenu(searchTerm);
+        setSearchValue(searchTerm);
+    };
+
+    return (
+        <>
+            <InputSearch onSearch={handleSearch} />
+
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-8 bg-[#F8F9FA] p-8">
+                {/* Menu */}
+                <section className="bg-white shadow-custom p-4 overflow-auto h-fit lg:sticky">
+                    <Menu search={searchValue} />
+                </section>
+
+                {/* Carrinho */}
+                <aside className="h-fit lg:sticky hidden md:block">
+                    <Cart />
+                </aside>
+            </div>
+        </>
     );
 };
 

@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { useMenu } from "../../contexts/MenuContext";
 import Categories from "./Categories";
 import Modal from "../Modal";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
-const Menu = () => {
+interface MenuProps {
+    search: string;
+}
+
+const Menu = ({ search }: MenuProps) => {
     const { menu, loading, error, addToCart, cart } = useMenu();
 
     const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
@@ -14,6 +18,15 @@ const Menu = () => {
         useState<number>(0); // Preço do modificador selecionado
     const [quantity, setQuantity] = useState(1); // Quantidade do item no modal
     const [isModalOpen, setIsModalOpen] = useState(false); // Controle do modal
+
+    useEffect(() => {
+        if (search && menu) {
+            const categoriesWithResults = menu.sections
+                .filter((section) => section.items.length > 0)
+                .map((section) => section.name);
+            setExpandedCategories(categoriesWithResults);
+        }
+    }, [search]);
 
     const toggleCategory = (category: string) => {
         if (expandedCategories.includes(category)) {

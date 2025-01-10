@@ -27,67 +27,69 @@ const Cart = () => {
                         Seu carrinho está vazio
                     </p>
                 ) : (
-                    <div>
-                        {cart.map((item) => {
-                            const defaultPrice =
-                                item.price === 0 && item.modifiers?.length
-                                    ? item.modifiers[0].items[0]?.price || 0
-                                    : item.price;
+                    <>
+                        <div className="max-h-96 overflow-y-scroll custom-scrollbar">
+                            {cart.map((item) => {
+                                const defaultPrice =
+                                    item.price === 0 && item.modifiers?.length
+                                        ? item.modifiers[0].items[0]?.price || 0
+                                        : item.price;
 
-                            return (
-                                <div
-                                    key={item.id}
-                                    className="flex justify-between items-start mb-4"
-                                >
-                                    <div>
-                                        <h3 className="text-md lg:text-lg font-bold">
-                                            {item.name}
-                                        </h3>
-                                        <h4 className="text-sm">
-                                            {item?.modifiers
-                                                ? item.modifiers[0].items.find(
-                                                      (e) =>
-                                                          e.price ===
-                                                          defaultPrice
-                                                  )?.name
-                                                : ""}
-                                        </h4>
-                                        <div className="flex items-center gap-3 ml-2 mt-2">
-                                            {/* Botão de diminuir quantidade */}
-                                            <button
-                                                className="text-white bg-brown-700 rounded-full w-6 h-6 flex items-center justify-center"
-                                                onClick={() =>
-                                                    addToCart(item, -1)
-                                                }
-                                            >
-                                                <FaMinus size={10} />
-                                            </button>
+                                return (
+                                    <div
+                                        key={item.id}
+                                        className="flex justify-between items-start mb-4"
+                                    >
+                                        <div>
+                                            <h3 className="text-md lg:text-lg font-bold">
+                                                {item.name}
+                                            </h3>
+                                            <h4 className="text-sm">
+                                                {item?.modifiers
+                                                    ? item.modifiers[0].items.find(
+                                                          (e) =>
+                                                              e.price ===
+                                                              defaultPrice
+                                                      )?.name
+                                                    : ""}
+                                            </h4>
+                                            <div className="flex items-center gap-3 ml-2 mt-2">
+                                                {/* Botão de diminuir quantidade */}
+                                                <button
+                                                    className="text-white bg-brown-700 rounded-full w-6 h-6 flex items-center justify-center"
+                                                    onClick={() =>
+                                                        addToCart(item, -1)
+                                                    }
+                                                >
+                                                    <FaMinus size={10} />
+                                                </button>
 
-                                            {/* Quantidade */}
-                                            <span className="text-md font-bold">
-                                                {item.quantity}
-                                            </span>
+                                                {/* Quantidade */}
+                                                <span className="text-md font-bold">
+                                                    {item.quantity}
+                                                </span>
 
-                                            {/* Botão de aumentar quantidade */}
-                                            <button
-                                                className="text-white bg-brown-700 rounded-full w-6 h-6 flex items-center justify-center"
-                                                onClick={() =>
-                                                    addToCart(item, 1)
-                                                }
-                                            >
-                                                <FaPlus size={10} />
-                                            </button>
+                                                {/* Botão de aumentar quantidade */}
+                                                <button
+                                                    className="text-white bg-brown-700 rounded-full w-6 h-6 flex items-center justify-center"
+                                                    onClick={() =>
+                                                        addToCart(item, 1)
+                                                    }
+                                                >
+                                                    <FaPlus size={10} />
+                                                </button>
+                                            </div>
                                         </div>
+                                        <p className="text-md lg:text-lg font-bold">
+                                            R$
+                                            {(
+                                                defaultPrice * item.quantity
+                                            ).toFixed(2)}
+                                        </p>
                                     </div>
-                                    <p className="text-md lg:text-lg font-bold">
-                                        R$
-                                        {(defaultPrice * item.quantity).toFixed(
-                                            2
-                                        )}
-                                    </p>
-                                </div>
-                            );
-                        })}
+                                );
+                            })}
+                        </div>
 
                         {/* Subtotal */}
                         <div className="mt-4 pt-4">
@@ -105,7 +107,7 @@ const Cart = () => {
                         <button className="w-full mt-8 bg-brown-700 text-white py-2 rounded-3xl font-bold hover:bg-[#8d4d37] transition duration-200">
                             Finalizar compra
                         </button>
-                    </div>
+                    </>
                 )}
             </div>
         </div>

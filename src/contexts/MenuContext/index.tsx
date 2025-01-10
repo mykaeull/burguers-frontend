@@ -8,12 +8,14 @@ interface MenuContextData {
     error: string | null; // Erro em caso de falha na requisição
     cart: MenuSectionItem[];
     addToCart: (item: MenuSectionItem, quantity: number) => void;
+    filterMenu: (searchTerm: string) => void;
 }
 
 const MenuContext = createContext<MenuContextData | undefined>(undefined);
 
 export const MenuProvider = ({ children }: any) => {
     const [menu, setMenu] = useState<Menu | null>(null);
+    const [originalMenu, setOriginalMenu] = useState<Menu | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -47,6 +49,7 @@ export const MenuProvider = ({ children }: any) => {
                 const data = await getMenu();
                 console.log("data: ", data);
                 setMenu(data);
+                setOriginalMenu(data);
                 setError(null);
             } catch (err: any) {
                 setError(err.message || "Erro ao carregar o menu");
@@ -97,8 +100,33 @@ export const MenuProvider = ({ children }: any) => {
         });
     };
 
+    const filterMenu = (searchTerm: string) => {
+        if (!originalMenu) return;
+
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
+        const filteredSections = originalMenu.sections
+            .map((section) => {
+                const filteredItems = section.items.filter((item) =>
+                    item.name.toLowerCase().includes(lowerCaseSearchTerm)
+                );
+                return {
+                    ...section,
+                    items: filteredItems,
+                };
+            })
+            .filter((section) => section.items.length > 0);
+
+        setMenu({
+            ...originalMenu,
+            sections: filteredSections,
+        });
+    };
+
     return (
-        <MenuContext.Provider value={{ menu, loading, error, cart, addToCart }}>
+        <MenuContext.Provider
+            value={{ menu, loading, error, cart, addToCart, filterMenu }}
+        >
             {children}
         </MenuContext.Provider>
     );

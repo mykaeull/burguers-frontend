@@ -1,25 +1,19 @@
 import React from "react";
 import "./App.css";
-import InputSearch from "./components/InputSearch";
-import Header from "./components/Header";
-import MainMenu from "./components/MainMenu";
+import AppRoutes from "./routes";
 import { MenuProvider } from "./contexts/MenuContext";
-import FloatingCartButton from "./components/Cart/FloatingCartButton";
+import Header from "./components/Header";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
     return (
         <MenuProvider>
-            <div>
-                <Header />
-
-                <main className="px-4 sm:px-6 md:px-16 lg:px-32 xl:px-52 py-6">
-                    <InputSearch />
-
-                    <MainMenu />
-                </main>
-
-                <FloatingCartButton />
-            </div>
+            <Router>
+                <div>
+                    <Header />
+                    <AppRoutes />
+                </div>
+            </Router>
         </MenuProvider>
     );
 }

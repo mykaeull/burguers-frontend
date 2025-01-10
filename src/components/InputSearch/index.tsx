@@ -13,12 +13,12 @@ const InputSearch = ({
     const [value, setValue] = React.useState("");
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value);
-    };
+        const newValue = event.target.value;
+        setValue(newValue);
 
-    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter" && onSearch) {
-            onSearch(value);
+        // Chama a função onSearch a cada alteração
+        if (onSearch) {
+            onSearch(newValue);
         }
     };
 
@@ -32,7 +32,6 @@ const InputSearch = ({
                 placeholder={placeholder}
                 value={value}
                 onChange={handleChange}
-                onKeyPress={handleKeyPress}
                 className="flex-grow bg-transparent outline-none text-gray-800 placeholder-gray-400"
             />
         </div>
