@@ -21,6 +21,20 @@ export async function getMenu() {
                 price: item.price,
                 image: item.images?.[0]?.image || null, // Usa a primeira imagem do item, se disponível
                 available: item.available,
+                modifiers:
+                    item.modifiers?.map((modifier: any) => ({
+                        id: modifier.id,
+                        name: modifier.name,
+                        minChoices: modifier.minChoices,
+                        maxChoices: modifier.maxChoices,
+                        items: modifier.items.map((modifierItem: any) => ({
+                            id: modifierItem.id,
+                            name: modifierItem.name,
+                            price: modifierItem.price,
+                            maxChoices: modifierItem.maxChoices || 1,
+                            available: modifierItem.available,
+                        })),
+                    })) || null, // Apenas inclui modificadores se existirem
             })),
         })),
     };

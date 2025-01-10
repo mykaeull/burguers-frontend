@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://cdn-dev.preoday.com/",
+    baseURL:
+        "https://cors-anywhere-7hvq.onrender.com/https://cdn-dev.preoday.com/",
     headers: {
-        Accept: "application/json",
         "Content-Type": "application/json",
     },
 });

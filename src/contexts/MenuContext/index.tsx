@@ -45,6 +45,7 @@ export const MenuProvider = ({ children }: any) => {
             try {
                 setLoading(true);
                 const data = await getMenu();
+                console.log("data: ", data);
                 setMenu(data);
                 setError(null);
             } catch (err: any) {

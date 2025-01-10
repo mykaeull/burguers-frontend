@@ -12,13 +12,18 @@ const Categories = ({
 }: CategoriesProps) => {
     const { menu } = useMenu();
 
-    const toggleCategory = (category: string) => {
+    const toggleCategory = (category: string, id: string) => {
         if (expandedCategories.includes(category)) {
             setExpandedCategories(
                 expandedCategories.filter((c) => c !== category)
             );
         } else {
             setExpandedCategories([...expandedCategories, category]);
+        }
+
+        const section = document.getElementById(id);
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
         }
     };
 
@@ -28,7 +33,9 @@ const Categories = ({
                 <div
                     key={section.id}
                     className="flex flex-col items-center cursor-pointer"
-                    onClick={() => toggleCategory(section.name)} // Usa a função de toggle corretamente
+                    onClick={() =>
+                        toggleCategory(section.name, String(section.id))
+                    } // Usa a função de toggle corretamente
                 >
                     <div
                         className={`w-[4.5rem] sm:w-[5.5rem] h-[4.5rem] sm:h-[5.5rem] rounded-full ${
