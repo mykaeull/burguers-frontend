@@ -11,7 +11,7 @@ const MainMenu = () => {
             </section>
 
             {/* Carrinho */}
-            <aside className="h-fit lg:sticky">
+            <aside className="h-fit lg:sticky hidden md:block">
                 <Cart />
             </aside>
         </div>

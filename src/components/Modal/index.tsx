@@ -13,7 +13,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 
     return ReactDOM.createPortal(
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white shadow-lg relative max-w-md w-full">
+            <div className="bg-white shadow-lg relative max-w-md w-[90%] sm:w-full">
                 {/* Botão de fechar */}
                 <button
                     onClick={onClose}

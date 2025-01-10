@@ -4,6 +4,7 @@ import InputSearch from "./components/InputSearch";
 import Header from "./components/Header";
 import MainMenu from "./components/MainMenu";
 import { MenuProvider } from "./contexts/MenuContext";
+import FloatingCartButton from "./components/Cart/FloatingCartButton";
 
 function App() {
     return (
@@ -16,6 +17,8 @@ function App() {
 
                     <MainMenu />
                 </main>
+
+                <FloatingCartButton />
             </div>
         </MenuProvider>
     );

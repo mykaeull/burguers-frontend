@@ -110,13 +110,16 @@ const Menu = () => {
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 {selectedItem && (
                     <div>
-                        <img
-                            src={selectedItem.image}
-                            alt={selectedItem.name}
-                            className="w-full h-64 object-cover"
-                        />
+                        {selectedItem.image && (
+                            <img
+                                src={selectedItem.image}
+                                alt={selectedItem.name}
+                                className="w-full h-64 object-cover"
+                            />
+                        )}
+
                         <div className="p-6">
-                            <h2 className="text-lg font-bold">
+                            <h2 className="text-2xl font-bold">
                                 {selectedItem.name}
                             </h2>
                             <p className="text-sm text-gray-600 mt-2">
@@ -151,7 +154,7 @@ const Menu = () => {
                                 </button>
                             </div>
                             <button
-                                className="w-full mt-4 bg-brown-700 text-white py-2 rounded-3xl font-bold"
+                                className="w-full mt-4 bg-brown-700 text-white py-2 rounded-3xl font-bold hover:bg-[#8d4d37] transition duration-200"
                                 onClick={handleAddToCart}
                             >
                                 Adicionar ao carrinho • R${" "}

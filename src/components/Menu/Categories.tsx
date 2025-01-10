@@ -31,7 +31,7 @@ const Categories = ({
                     onClick={() => toggleCategory(section.name)} // Usa a função de toggle corretamente
                 >
                     <div
-                        className={`w-[5rem] sm:w-[5.5rem] h-[5rem] sm:h-[5.5rem] rounded-full ${
+                        className={`w-[4.5rem] sm:w-[5.5rem] h-[4.5rem] sm:h-[5.5rem] rounded-full ${
                             expandedCategories.includes(section.name)
                                 ? "border-2"
                                 : ""

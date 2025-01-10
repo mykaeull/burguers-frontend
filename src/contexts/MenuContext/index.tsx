@@ -16,15 +16,36 @@ export const MenuProvider = ({ children }: any) => {
     const [menu, setMenu] = useState<Menu | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [cart, setCart] = useState<MenuSectionItem[]>([]);
+
+    // Inicialize o cart a partir do localStorage
+    const [cart, setCart] = useState<MenuSectionItem[]>(() => {
+        const storedCart = localStorage.getItem("cart");
+        if (storedCart) {
+            try {
+                return JSON.parse(storedCart); // Alimenta o estado cart com o localStorage
+            } catch {
+                console.error("Erro ao parsear o carrinho do localStorage");
+                return [];
+            }
+        }
+        return [];
+    });
+
+    // Atualiza o localStorage sempre que o cart for alterado
+    useEffect(() => {
+        if (cart.length > 0) {
+            localStorage.setItem("cart", JSON.stringify(cart));
+        } else {
+            localStorage.removeItem("cart"); // Remove se o carrinho estiver vazio
+        }
+    }, [cart]);
 
     useEffect(() => {
         const fetchMenu = async () => {
             try {
                 setLoading(true);
-                const data = await getMenu(); // Chama o serviço que faz a requisição
-                console.log("data: ", data);
-                setMenu(data); // Salva os dados no estado
+                const data = await getMenu();
+                setMenu(data);
                 setError(null);
             } catch (err: any) {
                 setError(err.message || "Erro ao carregar o menu");
@@ -38,26 +59,40 @@ export const MenuProvider = ({ children }: any) => {
 
     const addToCart = (item: MenuSectionItem, quantity: number) => {
         setCart((prevCart) => {
-            // Verifica se o item já existe no carrinho
             const existingItemIndex = prevCart.findIndex(
                 (cartItem) => cartItem.id === item.id
             );
 
             if (existingItemIndex !== -1) {
-                // Atualiza a quantidade do item existente
-                const updatedCart = prevCart.map((cartItem, index) =>
-                    index === existingItemIndex
-                        ? {
-                              ...cartItem,
-                              quantity: cartItem.quantity + quantity,
-                          }
-                        : cartItem
+                const updatedCart = prevCart.map((cartItem, index) => {
+                    if (index === existingItemIndex) {
+                        const updatedQuantity = cartItem.quantity + quantity;
+
+                        if (updatedQuantity <= 0) {
+                            return undefined; // Remove itens com quantidade zero ou menor
+                        }
+
+                        return {
+                            ...cartItem,
+                            quantity: updatedQuantity,
+                        };
+                    }
+                    return cartItem;
+                });
+
+                // Filtra itens removidos
+                return updatedCart.filter(
+                    (cartItem): cartItem is MenuSectionItem =>
+                        cartItem !== undefined
                 );
-                return updatedCart;
             }
 
-            // Adiciona um novo item ao carrinho
-            return [...prevCart, { ...item, quantity }];
+            // Adiciona um novo item se não existir no carrinho
+            if (quantity > 0) {
+                return [...prevCart, { ...item, quantity }];
+            }
+
+            return prevCart; // Caso nenhuma mudança seja necessária
         });
     };
 
