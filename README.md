@@ -1,46 +1,115 @@
-# Getting Started with Create React App
+# Burgers Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the **Burgers Frontend** project! This application is a fully functional menu and cart system for a burger shop, built with React, TypeScript, and TailwindCSS. The project includes features like internationalization, responsive design, cart management, and more.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Assumptions](#assumptions)
+- [Folder Structure](#folder-structure)
+- [Technologies Used](#technologies-used)
+- [How to Run the Project](#how-to-run-the-project)
+- [Process and Choices](#process-and-choices)
 
-### `yarn start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Dynamic Menu:** Users can view and interact with categories and items dynamically loaded from a mock service.
+- **Cart Management:** Add, remove, and update items in the cart.
+- **Responsive Design:** Works seamlessly on desktop and mobile devices.
+- **Internationalization (i18n):** Supports English (EN) and Brazilian Portuguese (PT-BR).
+- **Currency Conversion:** Prices are displayed in USD or BRL depending on the selected language.
+- **Custom Scrollbars:** Styled scrollbars for better user experience.
+- **Toast Notifications:** Success notifications on actions like finishing an order.
 
-### `yarn test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Assumptions
 
-### `yarn build`
+- The menu data is fetched from a mock API (`getMenu` service).
+- Prices are stored in BRL by default and converted to USD based on a fixed exchange rate.
+- Only three routes are implemented: Home ("/"), Login ("/login"), and Contact ("/contact").
+- Login and Contact pages are placeholders with an "Under Construction" message.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Folder Structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```plaintext
+src/
+├── components/       # Reusable components like Cart, Header, and LanguageToggle
+├── contexts/         # Context APIs for menu and language management
+├── i18n/             # Internationalization setup and locale files
+├── locales/          # JSON files for EN and PT translations
+├── pages/            # Route components: Home, Login, and Contact
+├── routes/           # Application routes configuration
+├── services/         # Mock API services
+├── types/            # TypeScript types for the project
+├── utils/            # Utility functions (e.g., currency formatting)
+├── App.tsx           # Main application component
+├── index.tsx         # Entry point of the application
+```
 
-### `yarn eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Technologies Used
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **React**: For building the UI.
+- **TypeScript**: Ensures type safety throughout the project.
+- **TailwindCSS**: For styling and responsive design.
+- **React Router**: For routing between pages.
+- **i18next**: For internationalization.
+- **React Hot Toast**: For toast notifications.
+- **LocalStorage**: To persist cart data across sessions.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## How to Run the Project
 
-## Learn More
+### Prerequisites
+- Node.js (>= 16.x)
+- npm or yarn
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Steps
+1. Clone the repository:
+    ```bash
+    git clone <repository-url>
+    cd burgers-frontend
+    ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. Install dependencies:
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+3. Start the development server:
+    ```bash
+    npm start
+    # or
+    yarn start
+    ```
+
+4. Open your browser and navigate to:
+    ```plaintext
+    http://localhost:3000
+    ```
+
+---
+
+## Process and Choices
+
+1. **Componentization**: Components like `Cart`, `Menu`, and `Header` are modular and reusable. This ensures a clean and maintainable codebase.
+
+2. **Responsive Design**: Used TailwindCSS's utility classes to handle responsive behavior effectively, such as collapsing the navbar into a dropdown for mobile devices.
+
+3. **State Management**: Context APIs were implemented for managing the menu and language state, simplifying the app's structure.
+
+4. **Internationalization**: i18n integration allows seamless switching between languages and formats prices based on the selected language.
+
+5. **Error Handling**: Incorporated basic error handling for the menu service and provided fallback UIs (e.g., "Item not found" message).
+
+6. **Mock Data**: Used a mock API service to simulate fetching menu data, making the project self-contained and easy to run.
+
