@@ -12,7 +12,7 @@ i18n.use(LanguageDetector) // Detecta a linguagem do navegador/localStorage
             pt: { translation: translationsPt },
         },
         fallbackLng: "pt", // Língua padrão
-        debug: true, // Habilitar para testar, desative em produção
+        debug: false, // Habilitar para testar, desative em produção
         interpolation: {
             escapeValue: false, // React já faz a sanitização
         },
