@@ -4,6 +4,9 @@ import { useMenu } from "../../contexts/MenuContext";
 import Categories from "./Categories";
 import Modal from "../Modal";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+import { convertCurrency, formatCurrency } from "../../utils";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 interface MenuProps {
     search: string;
@@ -11,6 +14,10 @@ interface MenuProps {
 
 const Menu = ({ search }: MenuProps) => {
     const { menu, loading, error, addToCart, cart } = useMenu();
+
+    const { t } = useTranslation();
+
+    const { language } = useLanguage();
 
     const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
     const [selectedItem, setSelectedItem] = useState<any>(null);
@@ -102,7 +109,9 @@ const Menu = ({ search }: MenuProps) => {
                             onClick={() => toggleCategory(section.name)}
                         >
                             <h1 className="text-xl font-bold text-blackMenu">
-                                {section.name}
+                                {section.name === "Desserts"
+                                    ? t("desserts")
+                                    : section.name}
                             </h1>
                             {expandedCategories.includes(section.name) ? (
                                 <FiChevronUp size={24} color="#4F372F" />
@@ -124,7 +133,7 @@ const Menu = ({ search }: MenuProps) => {
                                     return (
                                         <div
                                             key={item.id}
-                                            className="flex justify-between items-center mb-4 cursor-pointer"
+                                            className="flex justify-between items-start mb-4 cursor-pointer"
                                             onClick={() =>
                                                 handleOpenModal(item)
                                             }
@@ -154,8 +163,17 @@ const Menu = ({ search }: MenuProps) => {
                                                     {item.description}
                                                 </p>
                                                 <p className="text-sm font-bold">
-                                                    {`R$ ${defaultPrice.toFixed(
-                                                        2
+                                                    {`${formatCurrency(
+                                                        convertCurrency(
+                                                            defaultPrice,
+                                                            "BRL",
+                                                            language === "en"
+                                                                ? "USD"
+                                                                : "BRL"
+                                                        ),
+                                                        language === "en"
+                                                            ? "USD"
+                                                            : "BRL"
                                                     )}`}
                                                 </p>
                                             </div>
@@ -197,10 +215,10 @@ const Menu = ({ search }: MenuProps) => {
                             {selectedItem.modifiers?.length && (
                                 <div className="mt-4">
                                     <h3 className="text-lg font-bold">
-                                        {selectedItem.modifiers[0].name}
+                                        {t("choose_size")}
                                     </h3>
                                     <p className="text-sm text-gray-500">
-                                        {`Selecione 1 opção`}
+                                        {t("select_one_option")}
                                     </p>
 
                                     <div className="mt-2">
@@ -229,9 +247,18 @@ const Menu = ({ search }: MenuProps) => {
                                                         {modifier.name}
                                                     </span>
                                                     <span className="text-sm text-gray-600 ml-auto">
-                                                        R${" "}
-                                                        {modifier.price.toFixed(
-                                                            2
+                                                        {formatCurrency(
+                                                            convertCurrency(
+                                                                modifier.price,
+                                                                "BRL",
+                                                                language ===
+                                                                    "en"
+                                                                    ? "USD"
+                                                                    : "BRL"
+                                                            ),
+                                                            language === "en"
+                                                                ? "USD"
+                                                                : "BRL"
                                                         )}
                                                     </span>
                                                 </label>
@@ -274,13 +301,18 @@ const Menu = ({ search }: MenuProps) => {
                                 className="w-full mt-4 bg-brown-700 text-white py-2 rounded-3xl font-bold hover:bg-[#8d4d37] transition duration-200"
                                 onClick={handleAddToCart}
                             >
-                                Adicionar ao carrinho • R${" "}
-                                {(
-                                    quantity *
-                                    (selectedItem.modifiers?.length
-                                        ? selectedModifierPrice
-                                        : selectedItem.price)
-                                ).toFixed(2)}
+                                {t("add_to_cart")} •{" "}
+                                {formatCurrency(
+                                    convertCurrency(
+                                        quantity *
+                                            (selectedItem.modifiers?.length
+                                                ? selectedModifierPrice
+                                                : selectedItem.price),
+                                        "BRL",
+                                        language === "en" ? "USD" : "BRL"
+                                    ),
+                                    language === "en" ? "USD" : "BRL"
+                                )}
                             </button>
                         </div>
                     </div>

@@ -2,7 +2,9 @@ import React from "react";
 import { useMenu } from "../../contexts/MenuContext";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { formatCurrency, convertCurrency } from "../../utils";
 import { useTranslation } from "react-i18next";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 interface CartProps {
     setIsModalOpen?: (isModalOpen: boolean) => void;
@@ -13,8 +15,10 @@ const Cart = ({ setIsModalOpen }: CartProps) => {
 
     const { t } = useTranslation();
 
-    const calculateTotal = () =>
-        cart.reduce((total, item) => {
+    const { language } = useLanguage();
+
+    const calculateTotal = () => {
+        const total = cart.reduce((total, item) => {
             const defaultPrice =
                 item.price === 0 && item.modifiers?.length
                     ? item.modifiers[0].items[0]?.price || 0
@@ -22,6 +26,12 @@ const Cart = ({ setIsModalOpen }: CartProps) => {
 
             return total + defaultPrice * item.quantity;
         }, 0);
+
+        return formatCurrency(
+            convertCurrency(total, "BRL", language === "en" ? "USD" : "BRL"),
+            language === "en" ? "USD" : "BRL"
+        );
+    };
 
     const handleFinishOrder = () => {
         if (setIsModalOpen) setIsModalOpen(false);
@@ -92,10 +102,19 @@ const Cart = ({ setIsModalOpen }: CartProps) => {
                                             </div>
                                         </div>
                                         <p className="text-md lg:text-lg font-bold">
-                                            R$
-                                            {(
-                                                defaultPrice * item.quantity
-                                            ).toFixed(2)}
+                                            {formatCurrency(
+                                                convertCurrency(
+                                                    defaultPrice *
+                                                        item.quantity,
+                                                    "BRL",
+                                                    language === "en"
+                                                        ? "USD"
+                                                        : "BRL"
+                                                ),
+                                                language === "en"
+                                                    ? "USD"
+                                                    : "BRL"
+                                            )}
                                         </p>
                                     </div>
                                 );
@@ -105,12 +124,12 @@ const Cart = ({ setIsModalOpen }: CartProps) => {
                         <div className="mt-4 pt-4">
                             <div className="flex justify-between text-md lg:text-lg mb-2 pb-2">
                                 <span>{t("subtotal")}</span>
-                                <span>R$ {calculateTotal().toFixed(2)}</span>
+                                <span>{calculateTotal()}</span>
                             </div>
                             <div className="border-t pt-4 w-full" />
                             <div className="flex justify-between text-xl lg:text-2xl">
                                 <span>{t("total")}</span>
-                                <span>R$ {calculateTotal().toFixed(2)}</span>
+                                <span>{calculateTotal()}</span>
                             </div>
                         </div>
 

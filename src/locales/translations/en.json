@@ -7,10 +7,14 @@
     "cart_empty": "Your cart is empty",
     "subtotal": "Subtotal",
     "total": "Total",
-    "checkout": "Checkout",
     "add_to_cart": "Add to Cart",
     "cart": "Cart",
     "finish_order": "Finish order",
     "open_cart": "Open cart",
-    "order_placed": "Order placed successfully!"
+    "order_placed": "Order placed successfully!",
+    "login_page_construction": "Login Page Under Construction",
+    "contact_page_construction": "Contact Page Under Construction",
+    "desserts": "Desserts",
+    "choose_size": "Choose a size",
+    "select_one_option": "Select 1 option"
 }

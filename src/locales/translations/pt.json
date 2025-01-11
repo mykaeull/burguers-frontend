@@ -7,10 +7,14 @@
     "cart_empty": "Seu carrinho está vazio",
     "subtotal": "Subtotal",
     "total": "Total",
-    "checkout": "Finalizar pedido",
     "add_to_cart": "Adicionar ao Carrinho",
     "cart": "Carrinho",
     "finish_order": "Finalizar pedido",
     "open_cart": "Abrir carrinho",
-    "order_placed": "Pedido realizado com sucesso!"
+    "order_placed": "Pedido realizado com sucesso!",
+    "login_page_construction": "Página de Login em Construção",
+    "contact_page_construction": "Página de Contato em Construção",
+    "desserts": "Sobremesas",
+    "choose_size": "Escolha um tamanho",
+    "select_one_option": "Selecione 1 opção"
 }

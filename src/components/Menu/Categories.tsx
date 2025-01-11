@@ -1,5 +1,6 @@
 import React from "react";
 import { useMenu } from "../../contexts/MenuContext";
+import { useTranslation } from "react-i18next";
 
 interface CategoriesProps {
     expandedCategories: any[];
@@ -11,6 +12,8 @@ const Categories = ({
     setExpandedCategories,
 }: CategoriesProps) => {
     const { menu } = useMenu();
+
+    const { t } = useTranslation();
 
     const toggleCategory = (category: string, id: string) => {
         if (expandedCategories.includes(category)) {
@@ -54,7 +57,11 @@ const Categories = ({
                             className="w-16 sm:w-20 h-16 sm:h-20 object-cover rounded-full"
                         />
                     </div>
-                    <p className="mt-2 text-sm font-medium">{section.name}</p>
+                    <p className="mt-2 text-sm font-medium">
+                        {section.name === "Desserts"
+                            ? t("desserts")
+                            : section.name}
+                    </p>
                     {expandedCategories.includes(section.name) && (
                         <div className="w-full h-1 mt-1 bg-brown-700"></div>
                     )}

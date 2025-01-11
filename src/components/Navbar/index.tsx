@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { useLocation } from "react-router-dom";
@@ -9,6 +10,8 @@ const Navbar = () => {
     const location = useLocation();
 
     const isActive = (path: string) => location.pathname === path;
+
+    const { t } = useTranslation();
 
     return (
         <nav className="bg-brown-700 text-white relative">
@@ -21,7 +24,7 @@ const Navbar = () => {
                                 isActive("/") ? "active" : ""
                             }`}
                         >
-                            MENU
+                            {t("menu").toUpperCase()}
                         </a>
                         <span
                             className={`w-32 absolute left-0 top-10 h-1 bg-white transform ${
@@ -38,7 +41,7 @@ const Navbar = () => {
                                 isActive("/login") ? "active" : ""
                             }`}
                         >
-                            ENTRAR
+                            {t("login").toUpperCase()}
                         </a>
                         <span
                             className={`w-32 absolute left-0 top-10 h-1 bg-white transform ${
@@ -55,7 +58,7 @@ const Navbar = () => {
                                 isActive("/contact") ? "active" : ""
                             }`}
                         >
-                            CONTATO
+                            {t("contact").toUpperCase()}
                         </a>
                         <span
                             className={`w-32 absolute left-0 top-10 h-1 bg-white transform ${
@@ -68,9 +71,8 @@ const Navbar = () => {
                 </ul>
             </div>
 
-            {/* Mobile Navbar */}
             <div className="md:hidden flex justify-center relative items-center px-4 py-4">
-                <h1 className="text-lg font-bold">Menu</h1>
+                <h1 className="text-lg font-bold">{t("menu")}</h1>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     className={`focus:outline-none absolute right-6 rounded transform transition-transform duration-500 ${
@@ -85,17 +87,16 @@ const Navbar = () => {
                 </button>
             </div>
 
-            {/* Dropdown Menu */}
             {isOpen && (
                 <div className="absolute text-center top-[99%] left-0 w-full bg-brown-700 text-white flex flex-col items-start px-4 py-4 space-y-4 z-50">
                     <a href="/" className="block w-full hover:underline">
-                        MENU
+                        {t("menu").toUpperCase()}
                     </a>
                     <a href="/login" className="block w-full hover:underline">
-                        ENTRAR
+                        {t("login").toUpperCase()}
                     </a>
                     <a href="/contact" className="block w-full hover:underline">
-                        CONTATO
+                        {t("contact").toUpperCase()}
                     </a>
                 </div>
             )}
