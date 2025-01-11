@@ -18,7 +18,7 @@ const MainMenu = () => {
         <>
             <InputSearch onSearch={handleSearch} />
 
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-8 bg-[#F8F9FA] p-8">
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-8 bg-[#F8F9FA] p-0 sm:p-8">
                 <section className="bg-white shadow-custom p-4 overflow-auto h-fit lg:sticky">
                     <Menu search={searchValue} />
                 </section>

@@ -29,7 +29,7 @@ const FloatingCartButton = () => {
             </button>
 
             <Modal isOpen={isModalOpen} onClose={closeModal}>
-                <Cart />
+                <Cart setIsModalOpen={setIsModalOpen} />
             </Modal>
         </>
     );

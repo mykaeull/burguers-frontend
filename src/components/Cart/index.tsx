@@ -4,7 +4,11 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
-const Cart = () => {
+interface CartProps {
+    setIsModalOpen?: (isModalOpen: boolean) => void;
+}
+
+const Cart = ({ setIsModalOpen }: CartProps) => {
     const { cart, addToCart, clearCart } = useMenu();
 
     const { t } = useTranslation();
@@ -20,7 +24,8 @@ const Cart = () => {
         }, 0);
 
     const handleFinishOrder = () => {
-        toast.success("Pedido realizado!");
+        if (setIsModalOpen) setIsModalOpen(false);
+        toast.success(t("order_placed"));
         clearCart();
     };
 
@@ -37,7 +42,7 @@ const Cart = () => {
                     </p>
                 ) : (
                     <>
-                        <div className="max-h-96 overflow-y-scroll custom-scrollbar">
+                        <div className="max-h-96 overflow-y-auto custom-scrollbar">
                             {cart.map((item) => {
                                 const defaultPrice =
                                     item.price === 0 && item.modifiers?.length

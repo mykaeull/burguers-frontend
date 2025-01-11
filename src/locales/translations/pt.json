@@ -11,5 +11,6 @@
     "add_to_cart": "Adicionar ao Carrinho",
     "cart": "Carrinho",
     "finish_order": "Finalizar pedido",
-    "open_cart": "Abrir carrinho"
+    "open_cart": "Abrir carrinho",
+    "order_placed": "Pedido realizado com sucesso!"
 }
