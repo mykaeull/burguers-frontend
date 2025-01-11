@@ -95,7 +95,7 @@ const Menu = ({ search }: MenuProps) => {
 
             {!hasItems ? (
                 <p className="text-center mt-8 text-lg text-gray-600">
-                    Item não encontrado
+                    {t("item_not_found")}
                 </p>
             ) : (
                 menu?.sections.map((section) => (

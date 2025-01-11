@@ -16,5 +16,6 @@
     "contact_page_construction": "Contact Page Under Construction",
     "desserts": "Desserts",
     "choose_size": "Choose a size",
-    "select_one_option": "Select 1 option"
+    "select_one_option": "Select 1 option",
+    "item_not_found": "Item not found"
 }
