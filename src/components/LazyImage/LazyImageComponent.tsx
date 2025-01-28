@@ -10,14 +10,16 @@ const LazyImageComponent = ({
     altName: string;
     className?: string;
 }) => {
-    const [hasError, setHasError] = useState(false);
+    const [hasError, setHasError] = useState<boolean>(false);
 
     const handleError = () => {
         setHasError(true);
     };
 
     return hasError ? (
-        <div className="w-16 sm:w-20 h-16 sm:h-20 flex items-center justify-center flex-col text-gray-600 ">
+        <div
+            className={`${className} flex items-center justify-center flex-col bg-gray-200 text-gray-600 `}
+        >
             Error
             <MdBrokenImage size={24} />
         </div>

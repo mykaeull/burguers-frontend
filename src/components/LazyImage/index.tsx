@@ -1,5 +1,5 @@
-import React, { lazy, Suspense } from "react";
-import LoadingSpinner from "../LoadingSpinner";
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import Skeleton from "../Skeleton";
 
 const LazyImageComponent = lazy(() => import("./LazyImageComponent"));
 
@@ -12,8 +12,23 @@ const LazyImage = ({
     altName: string;
     className?: string;
 }) => {
+    // SIMULAR ANIMAÇÃO DE CARREGAMENTO SKELETON
+    // const [shouldRender, setShouldRender] = useState(false);
+
+    // useEffect(() => {
+    //     const timeout = setTimeout(() => {
+    //         setShouldRender(true);
+    //     }, 2000);
+
+    //     return () => clearTimeout(timeout);
+    // }, []);
+
+    // if (!shouldRender) {
+    //     return <Skeleton className={className} />;
+    // }
+
     return (
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense fallback={<Skeleton className={className} />}>
             <LazyImageComponent
                 image={image}
                 altName={altName}
