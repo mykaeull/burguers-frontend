@@ -1,15 +1,16 @@
 import React from "react";
 import Navbar from "../Navbar";
+import LazyImage from "../LazyImage";
 
 const Header = () => {
     return (
         <header>
             <Navbar />
-            <img
-                src="/header.png"
-                alt=""
+            <LazyImage
+                image="/header.png"
+                altName="header-image"
                 className="w-full object-cover min-h-32 min-w-20"
-            ></img>
+            />
         </header>
     );
 };

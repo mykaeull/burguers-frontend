@@ -7,6 +7,8 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { convertCurrency, formatCurrency } from "../../utils";
 import { useLanguage } from "../../contexts/LanguageContext";
+import LoadingSpinner from "../LoadingSpinner";
+import LazyImage from "../LazyImage";
 
 interface MenuProps {
     search: string;
@@ -77,7 +79,7 @@ const Menu = ({ search }: MenuProps) => {
     };
 
     if (loading) {
-        return <p>Carregando o menu...</p>;
+        return <LoadingSpinner />;
     }
 
     if (error) {
@@ -178,9 +180,9 @@ const Menu = ({ search }: MenuProps) => {
                                                 </p>
                                             </div>
                                             {item.image && (
-                                                <img
-                                                    src={item.image}
-                                                    alt={item.name}
+                                                <LazyImage
+                                                    image={item.image}
+                                                    altName={item.name}
                                                     className="w-20 h-20 object-cover rounded-md"
                                                 />
                                             )}
@@ -197,9 +199,9 @@ const Menu = ({ search }: MenuProps) => {
                 {selectedItem && (
                     <div>
                         {selectedItem.image && (
-                            <img
-                                src={selectedItem.image}
-                                alt={selectedItem.name}
+                            <LazyImage
+                                image={selectedItem.image}
+                                altName={selectedItem.name}
                                 className="w-full h-64 object-cover"
                             />
                         )}

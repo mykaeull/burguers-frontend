@@ -1,6 +1,7 @@
 import React from "react";
 import { useMenu } from "../../contexts/MenuContext";
 import { useTranslation } from "react-i18next";
+import LazyImage from "../LazyImage";
 
 interface CategoriesProps {
     expandedCategories: any[];
@@ -51,9 +52,9 @@ const Categories = ({
                                 : ""
                         }`}
                     >
-                        <img
-                            src={section.image}
-                            alt={section.name}
+                        <LazyImage
+                            image={section.image}
+                            altName={section.name}
                             className="w-16 sm:w-20 h-16 sm:h-20 object-cover rounded-full"
                         />
                     </div>
